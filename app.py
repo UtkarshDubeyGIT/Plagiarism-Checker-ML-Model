@@ -8,9 +8,6 @@ import os
 
 app = Flask(__name__)
 
-port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port)
-
 # Load models and vectorizer
 ai_tfidf_vectorizer = joblib.load("ai_tfidf_vectorizer.pkl")
 ai_model = joblib.load("ai_model.pkl")
@@ -76,5 +73,7 @@ def check_plagiarism():
         return jsonify({"error": str(e)}), 500
 
     
+# Ensure the app runs on the correct port for Render
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
