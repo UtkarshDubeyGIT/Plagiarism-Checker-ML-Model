@@ -4,13 +4,16 @@ import joblib
 import numpy as np
 
 from sklearn.feature_extraction.text import TfidfVectorizer
+import os
 
 app = Flask(__name__)
+
+port = int(os.environ.get("PORT", 5000))
+app.run(host="0.0.0.0", port=port)
 
 # Load models and vectorizer
 ai_tfidf_vectorizer = joblib.load("ai_tfidf_vectorizer.pkl")
 ai_model = joblib.load("ai_model.pkl")
-
 plagiarism_model = joblib.load("xgb_tuned_model.pkl")
 doc_tfidf_vectorizer = joblib.load("xgb_tfidf_vectorizer.pkl")
 
